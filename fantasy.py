@@ -121,4 +121,4 @@ for filename in sys.argv[1:]:
     parse_file(reader, weeks)
 
 print_players(weeks)
-create_sqlite_table(weeks)
+#create_sqlite_table(weeks)
