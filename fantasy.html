@@ -27,26 +27,26 @@
         <th onclick="sortTableNum(16)">FumLost</th>
         <th onclick="sortTableNum(17)">Fantasy Points</th>
     </tr>
-    {% for row in test %}
+    {% for fantasy_scores in fantasy %}
     <tr>
-      <td>{{ Week }}</td>
-      <td>{{ Name }}</td>
-      <td>{{ Team }}</td>
-      <td>{{ Against }}</td>
-      <td>{{ Position }}</td>
-      <td>{{ Passing_yards }}</td>
-      <td>{{ Passing_tds }}</td>
-      <td>{{ Passing_int }}</td>
-      <td>{{ Rushing_yards }}</td>
-      <td>{{ Rushing_tds }}</td>
-      <td>{{ Receiving_rec }}</td>
-      <td>{{ Receiving_yards }}</td>
-      <td>{{ Receiving_tds }}</td>
-      <td>{{ Return_td }}</td>
-      <td>{{ Misc_fumtd }}</td>
-      <td>{{ Misc_2pt }}</td>
-      <td>{{ Fum_lost }}</td>
-      <td>{{ Fantasy_points }}</td>
+        <td>{{ fantasy_scores['Week'] }}</td>
+        <td>{{ fantasy_scores['Name'] }}</td>
+        <td>{{ fantasy_scores['Team'] }}</td>
+        <td>{{ fantasy_scores['Against'] }}</td>
+        <td>{{ fantasy_scores['Position'] }}</td>
+        <td>{{ fantasy_scores['Passing_yards'] }}</td>
+        <td>{{ fantasy_scores['Passing_tds'] }}</td>
+        <td>{{ fantasy_scores['Passing_int'] }}</td>
+        <td>{{ fantasy_scores['Rushing_yards'] }}</td>
+        <td>{{ fantasy_scores['Rushing_tds'] }}</td>
+        <td>{{ fantasy_scores['Receiving_rec'] }}</td>
+        <td>{{ fantasy_scores['Receiving_yards'] }}</td>
+        <td>{{ fantasy_scores['Receiving_tds'] }}</td>
+        <td>{{ fantasy_scores['Return_td'] }}</td>
+        <td>{{ fantasy_scores['Misc_fumtd'] }}</td>
+        <td>{{ fantasy_scores['Misc_2pt'] }}</td>
+        <td>{{ fantasy_scores['Fum_lost'] }}</td>
+        <td>{{ fantasy_scores['Fantasy_points'] }}</td>
     </tr> 
     {% endfor %}
 </table>
