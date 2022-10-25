@@ -63,10 +63,18 @@ html {
     background-color: lightgray;
 }
 
+tr.header {
+    background-color: black;
+}
+
 .th {
     text-align: center;
+    font-family: Montserrat-Regular;
+    color: white;
 }
 
 .td {
     text-align: left;
+    font-family: Montserrat-Regular;
+    color: black;
 }
