@@ -54,3 +54,19 @@ html {
     padding: 10px;
     background-color: grey;
 }
+
+.table {
+    width: 100%;
+}
+
+.tr:hover {
+    background-color: lightgray;
+}
+
+.th {
+    text-align: center;
+}
+
+.td {
+    text-align: left;
+}
