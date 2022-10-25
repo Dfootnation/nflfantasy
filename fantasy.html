@@ -1,0 +1,48 @@
+
+
+<table>
+    <tr>
+        <th>PlayerID</th>
+        <th>Week</th>
+        <th>Name</th>
+        <th>Team</th>
+        <th>Against</th>
+        <th>Pos</th>
+        <th>PassYds</th>
+        <th>PassTD</th>
+        <th>PassInt</th>
+        <th>RushYds</th>
+        <th>RushTD</th>
+        <th>Rec</th>
+        <th>RecYds</th>
+        <th>RecTD</th>
+        <th>RetTD</th>
+        <th>FumTD</th>
+        <th>2PT</th>
+        <th>FumLost</th>
+        <th>Fantasy Points</th>
+    </tr>
+    {% for row in test %}
+    <tr>
+      <td>{{ playerid }}</td>
+      <td>{{ Week }}</td>
+      <td>{{ Name }}</td>
+      <td>{{ Team }}</td>
+      <td>{{ Against }}</td>
+      <td>{{ Position }}</td>
+      <td>{{ Passing_yards }}</td>
+      <td>{{ Passing_tds }}</td>
+      <td>{{ Passing_int }}</td>
+      <td>{{ Rushing_yards }}</td>
+      <td>{{ Rushing_tds }}</td>
+      <td>{{ Receiving_rec }}</td>
+      <td>{{ Receiving_yards }}</td>
+      <td>{{ Receiving_tds }}</td>
+      <td>{{ Return_td }}</td>
+      <td>{{ Misc_fumtd }}</td>
+      <td>{{ Misc_2pt }}</td>
+      <td>{{ Fum_lost }}</td>
+      <td>{{ Fantasy_points }}</td>
+    </tr> 
+    {% endfor %}
+</table>
