@@ -28,7 +28,6 @@ class Player:
     def __repr__(self) -> str:
         return repr(self.__dict__)
 
-
 #parse csv data
 def parse_file(reader, weeks):
       next(reader)
