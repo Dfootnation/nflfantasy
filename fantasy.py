@@ -34,7 +34,7 @@ def parse_file(reader, weeks):
       next(reader)
       for row in reader:
         week = row[0]
-        name = row[1].strip()
+        name = row[1].strip().replace("'", '')
         if week not in weeks:
           weeks[week] = []
         player = Player(name)
@@ -61,55 +61,49 @@ def print_players(weeks):
   for week, players in weeks.items():
     for player in players:
       print(week + ', ' + player.name + ', ' + player.pos + ', ' + player.re_tds + ', ' + player.fan_points)
+      print(f"""INSERT INTO fantasy_scores VALUES
+            ('NULL', {week}, '{player.name}', '{player.team}', '{player.against}', '{player.pos}', {player.p_yards}, {player.p_tds}, {player.p_int}, 
+            {player.ru_yards}, {player.ru_tds}, {player.re_rec}, {player.re_yards}, {player.re_tds}, {player.ret_td}, {player.m_fumtd}, {player.m_2pt},
+            {player.fum_lost}, {player.fan_points})""")
 
 def create_sqlite_table(weeks):
     for week, players in weeks.items():
         for player in players:
+            #droptable_query = "DROP TABLE IF EXISTS fantasy_scores;"
             #create query
-            table_query = '''CREATE TABLE if not Exists fantasy_scores
+            table_query = """CREATE TABLE IF NOT EXISTS fantasy_scores
             (playerid INTEGER PRIMARY KEY AUTOINCREMENT, Week INTEGER, Name VARCHAR, Team VARCHAR, 
             Against VARCHAR, Position VARCHAR, Passing_yards INTEGER, Passing_tds INTEGER, Passing_int INTEGER, 
-            Rushing_yards INTEGER, Rushing_tds, Receiving_rec INTEGER, Receiving_yards INTEGER, Receiving_tds INTEGER, 
-            Return td INTEGER, Misc_fumtd INTEGER, Misc_2pt INTEGER, Fum_lost INTEGER, Fantasy_points DOUBLE)'''
+            Rushing_yards INTEGER, Rushing_tds INTEGER, Receiving_rec INTEGER, Receiving_yards INTEGER, Receiving_tds INTEGER, 
+            Return td INTEGER, Misc_fumtd INTEGER, Misc_2pt INTEGER, Fum_lost INTEGER, Fantasy_points DOUBLE);"""
 
             #create database
             connection = sqlite3.connect('fantasy_football')
             cursor = connection.cursor()
+            #cursor.execute(droptable_query)
             #create table
             cursor.execute(table_query)
 
             #create insert query
-            #insertquery = '''INSERT INTO fantasy_scores VALUES 
-            #('NULL', '{week}', '{name}', '{team}', '{against}', '{pos}', '{p_yards}', '{p_tds}', '{p_int}', '{ru_yards}', '{ru_tds}', 
-            #'{re_rec}', '{re_yards}', '{re_tds}', '{ret_td}', '{m_fumtd}', '{m_2pt}', '{fum_lost}', '{fan_points}')'''
-
-            insertquery = '''INSERT INTO fantasy_scores VALUES 
-            ('NULL', {week}, '{player.name}', '{player.team}', '{player.against}', '{player.pos}', {player.p_yards}, {player.p_tds}, {player.p_int}, 
+            insertquery = f"""INSERT INTO fantasy_scores VALUES
+            (NULL, {week}, '{player.name}', '{player.team}', '{player.against}', '{player.pos}', {player.p_yards}, {player.p_tds}, {player.p_int}, 
             {player.ru_yards}, {player.ru_tds}, {player.re_rec}, {player.re_yards}, {player.re_tds}, {player.ret_td}, {player.m_fumtd}, {player.m_2pt},
-            {player.fum_lost}, {player.fan_points})'''
-            #or
-            #'''INSERT INTO fantasy_scores VALUES 
-            #('NULL', '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', 
-            #'{10}', '{11}', '{12}', '{13}', '{14}', '{15}', '{16}', '{17}')'''
-            #.format(week, player.name, player.team, player.against, player.pos, player.p_yards, player.p_tds, player.p_int, player.ru_yards, player.ru_tds,
-            # player.re_rec, player.re_yards, player.re_tds, player.ret_td, player.m_fumtd, player.m_2pt, player.fum_lost, player.fan_points)
+            {player.fum_lost}, {player.fan_points});"""
 
             #execute query
             cursor.execute(insertquery)
-            #view all the information from the csv
-            for row in cursor.execute('SELECT * FROM fantasy_scores'):
-                print(row)
-
-            select_all = "SELECT * FROM fantasy_scores"
-            rows = cursor.execute(select_all.fetchall())
-            # Output to the console screen
-            for r in rows:
-                print(r)
 
             #commit changes
             connection.commit()
-            #close connection
-            connection.close()
+
+    #view all the information from the csv
+    cursor.execute("SELECT * FROM fantasy_scores;")
+    #cursor.execute("SELECT * FROM fantasy_scores ORDER BY Fantasy_points;")
+    for row in cursor:
+        print(row)
+
+    #close connection
+    connection.close()
 
 
 weeks = {}
@@ -120,5 +114,5 @@ for filename in sys.argv[1:]:
     reader = csv.reader(csvfile, delimiter=',')
     parse_file(reader, weeks)
 
-print_players(weeks)
-#create_sqlite_table(weeks)
+#print_players(weeks)
+create_sqlite_table(weeks)
