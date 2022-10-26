@@ -6,4 +6,20 @@
 - Displays all data. Can also search and sort
 
 ### How to run:
+To install flask: ```pip3 install flask```<br>
+OPTIONAL: create a virtual environment using ```python3 -m venv venv``` <br>
+For macOS and linux: ```. venv/bin/activate``` <br>
+For windows: ```. venv/Scripts/activate``` <br>
+
+Export the variables:
+```export FLASK_APP=nflfantasy```<br>
+```export FLASK_DEBUG=DEV```<br>
+
+Initialise the database:
+```flask init-db```<br>
+
+Run the App:
+```flask run```<br>
+
+Run csv reading script:
 ```python3 fantasy.py fantasy.csv```
