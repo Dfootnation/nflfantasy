@@ -3,6 +3,7 @@
 
 <link rel="stylesheet" type="text/css" href="static/style.css">
 <script src="fantasy.js"></script>
+<link rel="stylesheet" href="{% 'static', 'style.css' %}">
 
 <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for week, names or team...">
 
@@ -27,26 +28,26 @@
         <th onclick="sortTableNum(16)">FumLost</th>
         <th onclick="sortTableNum(17)">Fantasy Points</th>
     </tr>
-    {% for fantasy_scores in fantasy %}
+    {% for fantasy_score in fantasy_scores %}
     <tr>
-        <td>{{ fantasy_scores['Week'] }}</td>
-        <td>{{ fantasy_scores['Name'] }}</td>
-        <td>{{ fantasy_scores['Team'] }}</td>
-        <td>{{ fantasy_scores['Against'] }}</td>
-        <td>{{ fantasy_scores['Position'] }}</td>
-        <td>{{ fantasy_scores['Passing_yards'] }}</td>
-        <td>{{ fantasy_scores['Passing_tds'] }}</td>
-        <td>{{ fantasy_scores['Passing_int'] }}</td>
-        <td>{{ fantasy_scores['Rushing_yards'] }}</td>
-        <td>{{ fantasy_scores['Rushing_tds'] }}</td>
-        <td>{{ fantasy_scores['Receiving_rec'] }}</td>
-        <td>{{ fantasy_scores['Receiving_yards'] }}</td>
-        <td>{{ fantasy_scores['Receiving_tds'] }}</td>
-        <td>{{ fantasy_scores['Return_td'] }}</td>
-        <td>{{ fantasy_scores['Misc_fumtd'] }}</td>
-        <td>{{ fantasy_scores['Misc_2pt'] }}</td>
-        <td>{{ fantasy_scores['Fum_lost'] }}</td>
-        <td>{{ fantasy_scores['Fantasy_points'] }}</td>
+        <td>{{ fantasy_score['Week'] }}</td>
+        <td>{{ fantasy_score['Name'] }}</td>
+        <td>{{ fantasy_score['Team'] }}</td>
+        <td>{{ fantasy_score['Against'] }}</td>
+        <td>{{ fantasy_score['Position'] }}</td>
+        <td>{{ fantasy_score['Passing_yards'] }}</td>
+        <td>{{ fantasy_score['Passing_tds'] }}</td>
+        <td>{{ fantasy_score['Passing_int'] }}</td>
+        <td>{{ fantasy_score['Rushing_yards'] }}</td>
+        <td>{{ fantasy_score['Rushing_tds'] }}</td>
+        <td>{{ fantasy_score['Receiving_rec'] }}</td>
+        <td>{{ fantasy_score['Receiving_yards'] }}</td>
+        <td>{{ fantasy_score['Receiving_tds'] }}</td>
+        <td>{{ fantasy_score['Return_td'] }}</td>
+        <td>{{ fantasy_score['Misc_fumtd'] }}</td>
+        <td>{{ fantasy_score['Misc_2pt'] }}</td>
+        <td>{{ fantasy_score['Fum_lost'] }}</td>
+        <td>{{ fantasy_score['Fantasy_points'] }}</td>
     </tr> 
     {% endfor %}
 </table>

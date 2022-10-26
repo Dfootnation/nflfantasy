@@ -81,10 +81,10 @@ def create_sqlite_table(weeks):
             cursor = connection.cursor()
             #cursor.execute(droptable_query)
             #create table
-            cursor.execute(table_query)
+            #cursor.execute(table_query)
 
             #create insert query
-            insertquery = f"""INSERT INTO fantasy_scores VALUES
+            insertquery = f"""INSERT INTO fantasy_score VALUES
             (NULL, {week}, '{player.name}', '{player.team}', '{player.against}', '{player.pos}', {player.p_yards}, {player.p_tds}, {player.p_int}, 
             {player.ru_yards}, {player.ru_tds}, {player.re_rec}, {player.re_yards}, {player.re_tds}, {player.ret_td}, {player.m_fumtd}, {player.m_2pt},
             {player.fum_lost}, {player.fan_points});"""
@@ -96,8 +96,8 @@ def create_sqlite_table(weeks):
             connection.commit()
 
     #view all the information from the csv
-    cursor.execute("SELECT * FROM fantasy_scores;")
-    #cursor.execute("SELECT * FROM fantasy_scores ORDER BY Fantasy_points;")
+    cursor.execute("SELECT * FROM fantasy_score;")
+    #cursor.execute("SELECT * FROM fantasy_score ORDER BY Fantasy_points;")
     for row in cursor:
         print(row)
 
