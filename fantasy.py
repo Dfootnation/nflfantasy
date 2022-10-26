@@ -70,14 +70,14 @@ def create_sqlite_table(weeks):
         for player in players:
             #droptable_query = "DROP TABLE IF EXISTS fantasy_scores;"
             #create query
-            table_query = """CREATE TABLE IF NOT EXISTS fantasy_scores
+            table_query = """CREATE TABLE IF NOT EXISTS fantasy_score
             (playerid INTEGER PRIMARY KEY AUTOINCREMENT, Week INTEGER, Name VARCHAR, Team VARCHAR, 
             Against VARCHAR, Position VARCHAR, Passing_yards INTEGER, Passing_tds INTEGER, Passing_int INTEGER, 
             Rushing_yards INTEGER, Rushing_tds INTEGER, Receiving_rec INTEGER, Receiving_yards INTEGER, Receiving_tds INTEGER, 
             Return_td INTEGER, Misc_fumtd INTEGER, Misc_2pt INTEGER, Fum_lost INTEGER, Fantasy_points DOUBLE);"""
 
             #create database
-            connection = sqlite3.connect('fantasy_football')
+            connection = sqlite3.connect('nflfantasy.sqlite')
             cursor = connection.cursor()
             #cursor.execute(droptable_query)
             #create table
@@ -96,10 +96,10 @@ def create_sqlite_table(weeks):
             connection.commit()
 
     #view all the information from the csv
-    cursor.execute("SELECT * FROM fantasy_score;")
+    #cursor.execute("SELECT * FROM fantasy_score;")
     #cursor.execute("SELECT * FROM fantasy_score ORDER BY Fantasy_points;")
-    for row in cursor:
-        print(row)
+    #for row in cursor:
+    #    print(row)
 
     #close connection
     connection.close()

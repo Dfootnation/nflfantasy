@@ -26,7 +26,7 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
-    from . import fantasy
-    app.register_blueprint(fantasy.bp)
+    from . import fantasy_stats
+    app.register_blueprint(fantasy_stats.bp)
 
     return app

@@ -1,4 +1,4 @@
- DROP IF TABLE EXISTS fantasy_score;
+DROP TABLE IF EXISTS fantasy_score;
 
 
 CREATE TABLE fantasy_score (
