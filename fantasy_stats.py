@@ -11,14 +11,14 @@ def index():
     fantasy_stats = db.execute(
         'SELECT * FROM fantasy_score ORDER BY Fantasy_points Desc'
     ).fetchall()
-    return render_template('fantasy.html', fantasy_stats=fantasy_stats)
+    return render_template('fantasy.html', fantasy_stats=fantasy_stats, week='')
 
 @bp.route('/', methods=['POST'])
-def searchName():
-    name = request.form['name']
+def selectweek():
+    week = request.form['week']
     query = 'SELECT * FROM fantasy_score'
-    if name:
-        query += "WHERE Name LIKE '%%{}%%'".format(name)
+    if week:
+        query += " WHERE Week = '%%{}%%'".format(week)
     db = get_db()
     fantasy_stats = db.execute(query).fetchall()
-    return render_template('fantasy.html', fantasy_stats=fantasy_stats, name=name)
+    return render_template('fantasy.html', fantasy_stats=fantasy_stats, week=week)

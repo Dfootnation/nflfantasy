@@ -4,18 +4,27 @@
     <hr>
 </header>
 
-<h2>Week 1</h2>
-
-
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 <div>
+    <form action="/" method="post">
+        <label for="week">Week</label>
+        <select id="week" name="week">
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value="2">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select> 
+    </form>
     <input type="text" id="searchInput" placeholder="Search for week, names or team..."/>
 </div>
 
 <table id="fantasyStats">
     <tr class="header">
-        <th onclick="sortTableNum(0)">Week</th>
+        <th onclick="sortTableWeek(0)">Week</th>
         <th onclick="sortTableStr(1)">Name</th>
         <th onclick="sortTableStr(2)">Team</th>
         <th onclick="sortTableStr(3)">Against</th>
