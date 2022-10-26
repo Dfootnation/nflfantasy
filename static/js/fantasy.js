@@ -1,24 +1,20 @@
-function searchTable() {
-    // Declare variables
-    var input, filter, table, tr, td1, td2, td3, i, txtValue;
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("fantasyStats");
-    tr = table.getElementsByTagName("tr");
+function filterTable(event) {
+  var filter = event.target.value.toUpperCase();
+  var rows = document.querySelector("#fantasyStats tbody").rows;
   
-    // Loop through all table rows, and hide those who don't match the search query
-    for (i = 0; i < tr.length; i++) {
-      td2 = tr[i].getElementsByTagName("td")[1];
-      if (td2) {
-        txtValue = td2.textContent || td2.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }
-    }
+  for (var i = 1; i < rows.length; i++) {
+      var firstCol = rows[i].cells[1].textContent.toUpperCase();
+      var secondCol = rows[i].cells[2].textContent.toUpperCase();
+      var thirdCol = rows[i].cells[3].textContent.toUpperCase();
+      if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1) {
+          rows[i].style.display = "";
+      } else {
+          rows[i].style.display = "none";
+      }      
+  }
 }
+
+document.querySelector('#searchInput').addEventListener('keyup', filterTable, false);
 
 function sortTableNum(n) {
     var table, rows, switching, i, x, y, shouldSwitch;
