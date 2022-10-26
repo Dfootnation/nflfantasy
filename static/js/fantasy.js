@@ -140,3 +140,8 @@ function sortTableStr(n) {
       }
     }
 }
+
+function submit_form(){
+  var form = document.getElementById("form");
+  form.submit();
+}
