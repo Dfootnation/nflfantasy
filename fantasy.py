@@ -77,7 +77,7 @@ def create_sqlite_table(weeks):
             Return_td INTEGER, Misc_fumtd INTEGER, Misc_2pt INTEGER, Fum_lost INTEGER, Fantasy_points DOUBLE);"""
 
             #create database
-            connection = sqlite3.connect('nflfantasy.sqlite')
+            connection = sqlite3.connect('instance/nflfantasy.sqlite')
             cursor = connection.cursor()
             #cursor.execute(droptable_query)
             #create table

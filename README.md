@@ -11,6 +11,8 @@ OPTIONAL: create a virtual environment using ```python3 -m venv venv``` <br>
 For macOS and linux: ```. venv/bin/activate``` <br>
 For windows: ```. venv/Scripts/activate``` <br>
 
+Then leave the directory to run it: ```cd ..``` <br>
+
 Export the variables: <br>
 ```export FLASK_APP=nflfantasy```<br>
 ```export FLASK_DEBUG=DEV```<br>
@@ -19,7 +21,7 @@ Initialise the database:
 ```flask init-db```<br>
 
 Run csv reading script:
-```python3 fantasy.py fantasy.csv``` <br>
+```python3 nflfantasy/fantasy.py nflfantasy/stat-sheets/csv/fantasy.csv``` <br>
 
 Run the App:
 ```flask run```

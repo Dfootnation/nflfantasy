@@ -1,22 +1,22 @@
-.body {
+body {
     font-family: serif; 
     color: black; 
     margin: 1rem 0; 
 }
 
-.h1 {
+h1 {
     font-family: sans-serif;
     color: black;
     font-size: 24px;
 }
 
-.h2 {
+h2 {
     font-family: sans-serif;
     color: rebeccapurple;
     font-size: 20px;
 }
 
-.h3 {
+h3 {
     font-family: sans-serif;
     color: black;
     font-size: 16px;
@@ -28,7 +28,7 @@
     justify-content: center;
 }
 
-.button {
+button {
     background-color: aquamarine;
     color: aliceblue;
     text-align: center;
@@ -39,10 +39,10 @@
     border: black;
 }
 
-.button-hover {
+button-hover {
     background-color: white;
     color: black;
-  }
+}
 
 html {
     background-color: white;
@@ -55,11 +55,11 @@ html {
     background-color: grey;
 }
 
-.table {
+table {
     width: 100%;
 }
 
-.tr:hover {
+tr:hover {
     background-color: lightgray;
 }
 
@@ -67,13 +67,13 @@ tr.header {
     background-color: black;
 }
 
-.th {
+th {
     text-align: center;
     font-family: Montserrat-Regular;
     color: white;
 }
 
-.td {
+td {
     text-align: left;
     font-family: Montserrat-Regular;
     color: black;
