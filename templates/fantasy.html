@@ -1,12 +1,17 @@
-<h1>Fantasy Football</h1>
-<hr>
+<!doctype html>
+<header>
+    <h1>Fantasy Football</h1>
+    <hr>
+</header>
+
 <h2>Week 1</h2>
 
-<link rel="stylesheet" type="text/css" href="static/style.css">
-<script src="scripts/fantasy.js"></script>
+<script src="{{ url_for('static', filename='js/fantasy.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-
-<input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for week, names or team...">
+<div>
+    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for week, names or team...">
+</div>
 
 <table id="fantasyStats">
     <tr class="header">
@@ -14,7 +19,7 @@
         <th onclick="sortTableStr(1)">Name</th>
         <th onclick="sortTableStr(2)">Team</th>
         <th onclick="sortTableStr(3)">Against</th>
-        <th onclick="sortTableNum(4)">Pos</th>
+        <th onclick="sortTableStr(4)">Pos</th>
         <th onclick="sortTableNum(5)">PassYds</th>
         <th onclick="sortTableNum(6)">PassTD</th>
         <th onclick="sortTableNum(7)">PassInt</th>
@@ -29,7 +34,7 @@
         <th onclick="sortTableNum(16)">FumLost</th>
         <th onclick="sortTableNum(17)">Fantasy Points</th>
     </tr>
-    {% for fantasy_score in fantasy_scores %}
+    {% for fantasy_score in fantasy_stats %}
     <tr>
         <td>{{ fantasy_score['Week'] }}</td>
         <td>{{ fantasy_score['Name'] }}</td>

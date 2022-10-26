@@ -39,7 +39,7 @@ button {
     border: black;
 }
 
-button-hover {
+button:hover {
     background-color: white;
     color: black;
 }
@@ -55,8 +55,20 @@ html {
     background-color: grey;
 }
 
+input {
+    float: right;
+    padding: 6px;
+    border: 0.5px solid black;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 16px;
+    width: 250px;
+}
+
 table {
     width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
 tr:hover {
@@ -69,12 +81,14 @@ tr.header {
 
 th {
     text-align: center;
-    font-family: Montserrat-Regular;
+    font-family: sans-serif;
     color: white;
+    border: 1px solid black;
 }
 
 td {
-    text-align: left;
-    font-family: Montserrat-Regular;
+    text-align: center;
+    font-family: sans-serif;
     color: black;
+    border: 1px solid black;
 }
