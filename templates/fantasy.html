@@ -7,9 +7,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 <div>
-    <form action="/" method="POST" id="form">
+    <form action="/" method="POST" id="Week">
         <label for="week">Week</label>
-        <select id="week" name="week" onchange="submit_form()">
+        <select id="week" name="week" onchange="submit_week()">
             <option value="0">Season</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -23,16 +23,26 @@
             <option value="10" disabled>10</option>
         </select> 
     </form>
-    <input type="text" id="searchInput" placeholder="Search for week, names or team..."/>
+    <form action="/" method="POST" id="Position">
+        <label for="position">Position</label>
+        <select id="position" name="position" onchange="submit_position()">
+            <option value="">All Positions</option>
+            <option value="QB">QB</option>
+            <option value="RB">RB</option>
+            <option value="WR">WR</option>
+            <option value="TE">TE</option>
+        </select> 
+    </form>
+    <input type="text" id="searchInput" placeholder="Search by names..."/>
 </div>
 
 <table id="fantasyStats">
     <tr class="header">
-        <th onclick="sortTableWeek(0)">Week</th>
+        <th>Week</th>
         <th onclick="sortTableStr(1)">Name</th>
         <th onclick="sortTableStr(2)">Team</th>
         <th onclick="sortTableStr(3)">Against</th>
-        <th onclick="sortTableStr(4)">Pos</th>
+        <th>Pos</th>
         <th onclick="sortTableNum(5)">PassYds</th>
         <th onclick="sortTableNum(6)">PassTD</th>
         <th onclick="sortTableNum(7)">PassInt</th>

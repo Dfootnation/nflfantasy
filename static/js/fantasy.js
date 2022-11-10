@@ -141,7 +141,12 @@ function sortTableStr(n) {
     }
 }
 
-function submit_form(){
-  var form = document.getElementById("form");
+function submit_week(){
+  var form = document.getElementById("Week");
+  form.submit();
+}
+
+function submit_position(){
+  var form = document.getElementById("Position");
   form.submit();
 }
