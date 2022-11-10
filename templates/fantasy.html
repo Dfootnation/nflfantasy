@@ -7,16 +7,20 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 <div>
-    <form action="/" method="post" id="form">
+    <form action="/" method="POST" id="form">
         <label for="week">Week</label>
         <select id="week" name="week" onchange="submit_form()">
+            <option value="0">Season</option>
             <option value="1">1</option>
             <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
+            <option value="3" disabled>3</option>
+            <option value="4" disabled>4</option>
+            <option value="5" disabled>5</option>
+            <option value="6" disabled>6</option>
+            <option value="7" disabled>7</option>
+            <option value="8" disabled>8</option>
+            <option value="9" disabled>9</option>
+            <option value="10" disabled>10</option>
         </select> 
     </form>
     <input type="text" id="searchInput" placeholder="Search for week, names or team..."/>

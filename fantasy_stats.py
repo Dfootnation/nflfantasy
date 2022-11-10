@@ -13,12 +13,13 @@ def index():
     ).fetchall()
     return render_template('fantasy.html', fantasy_stats=fantasy_stats, week='')
 
+
 @bp.route('/', methods=['POST'])
 def selectweek():
     week = request.form['week']
     query = 'SELECT * FROM fantasy_score'
     if week:
-        query += " WHERE Week = '%%{}%%'".format(week)
+        query += f' WHERE Week = {week} ORDER BY Fantasy_points Desc'
     db = get_db()
     fantasy_stats = db.execute(query).fetchall()
     return render_template('fantasy.html', fantasy_stats=fantasy_stats, week=week)
