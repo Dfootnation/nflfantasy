@@ -17,6 +17,10 @@ Export the variables: <br>
 ```export FLASK_APP=nflfantasy```<br>
 ```export FLASK_DEBUG=DEV```<br>
 
+For Windows:
+```export FLASK_APP=nflfantasy```<br>
+```export FLASK_ENV=dev```<br>
+
 Initialise the database:
 ```flask init-db```<br>
 
