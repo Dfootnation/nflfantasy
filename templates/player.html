@@ -36,7 +36,7 @@
     <button type="submit" form="form" value="Search">Search</button>
 </div>
 
-<table id="playerStats">
+<table id="playerInfo" class="info">
     <tr class="header">
         <th>Name</th>
         <th>Team</th>
@@ -69,7 +69,7 @@
     </tr>
     {% for fantasy_score in player_sum %}
     <tr>
-        <td>2022 Totals</td>
+        <td class="left">2022 Totals</td>
         <td>{{ fantasy_score['Passing_yards'] }}</td>
         <td>{{ fantasy_score['Passing_tds'] }}</td>
         <td>{{ fantasy_score['Passing_int'] }}</td>
@@ -87,7 +87,7 @@
     {% endfor %}
     {% for fantasy_score in player_avg %}
     <tr>
-        <td>2022 Averages</td>
+        <td class="left">2022 Averages</td>
         <td>{{ fantasy_score['Passing_yards'] }}</td>
         <td>{{ fantasy_score['Passing_tds'] }}</td>
         <td>{{ fantasy_score['Passing_int'] }}</td>
@@ -105,7 +105,43 @@
     {% endfor %}
     {% for fantasy_score in player %}
     <tr>
-        <td>Week {{ fantasy_score['Week'] }}</td>
+        <td class="left">Week {{ fantasy_score['Week'] }}</td>
+        <td>{{ fantasy_score['Passing_yards'] }}</td>
+        <td>{{ fantasy_score['Passing_tds'] }}</td>
+        <td>{{ fantasy_score['Passing_int'] }}</td>
+        <td>{{ fantasy_score['Rushing_yards'] }}</td>
+        <td>{{ fantasy_score['Rushing_tds'] }}</td>
+        <td>{{ fantasy_score['Receiving_rec'] }}</td>
+        <td>{{ fantasy_score['Receiving_yards'] }}</td>
+        <td>{{ fantasy_score['Receiving_tds'] }}</td>
+        <td>{{ fantasy_score['Return_td'] }}</td>
+        <td>{{ fantasy_score['Misc_fumtd'] }}</td>
+        <td>{{ fantasy_score['Misc_2pt'] }}</td>
+        <td>{{ fantasy_score['Fum_lost'] }}</td>
+        <td>{{ fantasy_score['Fantasy_points'] }}</td>
+    </tr> 
+    {% endfor %}
+    {% for fantasy_score in point_sum %}
+    <tr>
+        <td class="left">2022 Total Point Distribution</td>
+        <td>{{ fantasy_score['Passing_yards'] }}</td>
+        <td>{{ fantasy_score['Passing_tds'] }}</td>
+        <td>{{ fantasy_score['Passing_int'] }}</td>
+        <td>{{ fantasy_score['Rushing_yards'] }}</td>
+        <td>{{ fantasy_score['Rushing_tds'] }}</td>
+        <td>{{ fantasy_score['Receiving_rec'] }}</td>
+        <td>{{ fantasy_score['Receiving_yards'] }}</td>
+        <td>{{ fantasy_score['Receiving_tds'] }}</td>
+        <td>{{ fantasy_score['Return_td'] }}</td>
+        <td>{{ fantasy_score['Misc_fumtd'] }}</td>
+        <td>{{ fantasy_score['Misc_2pt'] }}</td>
+        <td>{{ fantasy_score['Fum_lost'] }}</td>
+        <td>{{ fantasy_score['Fantasy_points'] }}</td>
+    </tr> 
+    {% endfor %}
+    {% for fantasy_score in point_avg %}
+    <tr>
+        <td class="left">2022 Average Point Distribution</td>
         <td>{{ fantasy_score['Passing_yards'] }}</td>
         <td>{{ fantasy_score['Passing_tds'] }}</td>
         <td>{{ fantasy_score['Passing_int'] }}</td>
