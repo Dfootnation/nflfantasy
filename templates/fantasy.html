@@ -32,8 +32,15 @@
         </select> 
         <input type="submit" value="Search">
     </form>
-    <input type="text" id="searchInput" placeholder="Search by names..."/>
     <button type="submit" form="form" value="Search">Search</button>
+    <input type="text" id="searchInput" placeholder="Search week by names..."/>
+    <div>
+        <form action="/player" method="POST" id="form2">
+            <label for="name">All Season</label>
+            <input type="type" id="name" name="name" placeholder="Search player by name..."/>
+        </form>
+    </div>
+    
 </div>
 
 <table id="fantasyStats">
