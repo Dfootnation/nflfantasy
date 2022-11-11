@@ -7,9 +7,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 <div>
-    <form action="/" method="POST" id="Week">
+    <form action="/" method="POST" id="form">
         <label for="week">Week</label>
-        <select id="week" name="week" onchange="submit_week()">
+        <select id="week" name="week">
             <option value="0">Season</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -22,18 +22,18 @@
             <option value="9" disabled>9</option>
             <option value="10" disabled>10</option>
         </select> 
-    </form>
-    <form action="/" method="POST" id="Position">
         <label for="position">Position</label>
-        <select id="position" name="position" onchange="submit_position()">
-            <option value="">All Positions</option>
+        <select id="position" name="position">
+            <option value="0">All Positions</option>
             <option value="QB">QB</option>
             <option value="RB">RB</option>
             <option value="WR">WR</option>
             <option value="TE">TE</option>
         </select> 
+        <input type="submit" value="Search">
     </form>
     <input type="text" id="searchInput" placeholder="Search by names..."/>
+    <button type="submit" form="form" value="Search">Search</button>
 </div>
 
 <table id="fantasyStats">
