@@ -36,7 +36,6 @@
         <input type="submit" id="home" name="home" value="Home"/>
     </form>
     <input type="text" id="searchInput" placeholder="Search by names..."/>
-    <button type="submit" form="form" value="Search">Search</button>
 </div>
 
 <table id="playerInfo" class="info">
@@ -44,12 +43,14 @@
         <th>Name</th>
         <th>Team</th>
         <th>Pos</th>
+        <th>Games Played</th>
     </tr>
-    {% for fantasy_score in player_avg %}
+    {% for fantasy_score in profile %}
     <tr>
         <td>{{ fantasy_score['Name'] }}</td>
         <td>{{ fantasy_score['Team'] }}</td>
         <td>{{ fantasy_score['Position'] }}</td>
+        <td>{{ fantasy_score['Fantasy_points'] }}</td>
     </tr> 
     {% endfor %}
 
@@ -176,6 +177,18 @@
     {% for fantasy_score in player_max %}
     <tr>
         <td>2022 Max</td>
+        <td>{{ fantasy_score['Fantasy_points'] }}</td>
+    </tr> 
+    {% endfor %}
+    {% for fantasy_score in thirtyplus %}
+    <tr>
+        <td>Number of 30+ point games</td>
+        <td>{{ fantasy_score['Fantasy_points'] }}</td>
+    </tr> 
+    {% endfor %}
+    {% for fantasy_score in twentyplus %}
+    <tr>
+        <td>Number of 20+ point games</td>
         <td>{{ fantasy_score['Fantasy_points'] }}</td>
     </tr> 
     {% endfor %}

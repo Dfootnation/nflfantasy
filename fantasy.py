@@ -68,7 +68,7 @@ def print_players(weeks):
 def create_sqlite_table(weeks):
     for week, players in weeks.items():
         for player in players:
-            #droptable_query = "DROP TABLE IF EXISTS fantasy_scores;"
+            droptable_query = "DROP TABLE IF EXISTS fantasy_score;"
             #create query
             table_query = """CREATE TABLE IF NOT EXISTS fantasy_score
             (playerid INTEGER PRIMARY KEY AUTOINCREMENT, Week INTEGER, Name VARCHAR, Team VARCHAR, 
@@ -81,7 +81,7 @@ def create_sqlite_table(weeks):
             cursor = connection.cursor()
             #cursor.execute(droptable_query)
             #create table
-            #cursor.execute(table_query)
+            cursor.execute(table_query)
 
             #create insert query
             insertquery = f"""INSERT INTO fantasy_score VALUES
@@ -115,3 +115,5 @@ for filename in sys.argv[1:]:
 
 #print_players(weeks)
 create_sqlite_table(weeks)
+
+query6 = f'SELECT Name, Team, Position, ROUND(SUM(Passing_yards) / 25) as Passing_yards, ROUND(SUM(Passing_tds) * 4) as Passing_tds, ROUND(SUM(Passing_int) / 2) as Passing_int, ROUND(SUM(Rushing_yards) / 10) as Rushing_yards, ROUND(SUM(Rushing_tds) * 6) as Rushing_tds, ROUND(SUM(Receiving_rec)) as Receiving_rec, ROUND(SUM(Receiving_yards) / 10) as Receiving_yards, ROUND(SUM(Receiving_tds) * 6) as Receiving_tds, ROUND(SUM(Return_td) * 6) as Return_td, ROUND(SUM(Misc_fumtd)) as Misc_fumtd, ROUND(SUM(Misc_2pt) * 2) as Misc_2pt, ROUND(SUM(Fum_lost) * 2) as Fum_lost, ROUND(SUM(Fantasy_points), 2) as Fantasy_points FROM fantasy_score WHERE Name = "{name}";'

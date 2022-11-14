@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 <div>
+    <div>
+        <h2>Top 100 scores of 2022</h2>
+    </div>
     <form action="/" method="POST" id="form">
         <label for="week">Week</label>
         <select id="week" name="week">
@@ -35,11 +38,9 @@
     <form action="/" method="GET" id="form3">
         <input type="submit" id="home" name="home" value="Home"/>
     </form>
-    <button type="submit" form="form" value="Search">Search</button>
     <input type="text" id="searchInput" placeholder="Search week by names..."/>
     <div>
         <form action="/player" method="POST" id="form2">
-            <label for="name">All Season</label>
             <input type="type" id="name" name="name" placeholder="Search player by name..."/>
         </form>
     </div>
@@ -69,6 +70,7 @@
     </tr>
     {% for fantasy_score in fantasy_stats %}
     <tr>
+        <td>{{ 'rank' }}</td>
         <td>{{ fantasy_score['Week'] }}</td>
         <td>{{ fantasy_score['Name'] }}</td>
         <td>{{ fantasy_score['Team'] }}</td>
