@@ -60,3 +60,11 @@ def player():
     twentyplus = db.execute(query9).fetchall()
     profile = db.execute(query10).fetchall()
     return render_template('player.html', week='', position='', player=player, player_sum=player_sum, player_avg=player_avg, player_min=player_min, player_max=player_max, point_sum=point_sum, point_avg=point_avg, thirtyplus=thirtyplus, twentyplus=twentyplus, profile=profile, name=name)
+
+@bp.route('/season', methods=['GET'])
+def season():
+    db = get_db()
+    fantasy_stats = db.execute(
+        'SELECT Name, Team, Position, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points FROM fantasy_score  DESC LIMIT 100;'
+    ).fetchall()
+    return render_template('season.html', fantasy_stats=fantasy_stats, week='', position='', name='')
