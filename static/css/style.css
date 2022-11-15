@@ -1,3 +1,7 @@
+.header {
+    opacity: 1;
+}
+
 body {
     font-family: serif; 
     color: black; 
@@ -34,7 +38,7 @@ button {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 16px;
     padding: 10px 20px;
     border: black;
 }
@@ -82,6 +86,12 @@ button:hover {
     border: 0.5px black;
 }
 
+input:hover {
+    background-color: darkgrey;
+    color: black;
+    border: 0.5px black;
+}
+
 html {
     background-color: white;
 }
@@ -97,8 +107,9 @@ input {
     float: right;
     padding: 6px;
     border: 0.5px solid black;
-    margin-top: 8px;
+    margin-top: 16px;
     margin-right: 16px;
+    margin-bottom: 16px;
     font-size: 16px;
     width: 250px;
 }
@@ -141,4 +152,47 @@ table.info {
     margin-left: 20%;
     margin-right: 20%;
     padding-bottom: 10px;
+}
+
+.nav-container {
+    box-shadow: 0 1px 2px 0 #999999;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000003;
+    height: auto;
+}
+
+.left-container {
+    float: left;
+    margin-right: 16px;
+    display: flex;
+    padding-left: 16px;
+}
+
+.center-container {
+    float: left;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.nav-item {
+    font-family: "Endzone Sans Medium", SansSerif;
+    display: inline-block;
+    font-size: 14px;
+    text-align: left;
+    color: darkgrey;
+    text-transform: uppercase;
+    line-height: 46px;
+    padding: 8px;
+}
+
+.nav-item a {
+    cursor: pointer;
+    color: darkgrey;
+    display: block;
+}
+
+div {
+    display: block;
 }

@@ -9,7 +9,7 @@ bp = Blueprint('fantasy_stats', __name__)
 def index():
     db = get_db()
     fantasy_stats = db.execute(
-        'SELECT * FROM fantasy_score ORDER BY Fantasy_points Desc LIMIT 100;'
+        'SELECT ROW_NUMBER() OVER(ORDER BY Fantasy_points DESC) as Rank, fantasy_score.* FROM fantasy_score ORDER BY Fantasy_points Desc LIMIT 100;'
     ).fetchall()
     return render_template('fantasy.html', fantasy_stats=fantasy_stats, week='', position='', name='')
 
@@ -18,7 +18,7 @@ def index():
 def search():
     week = request.form['week']
     position = request.form['position']
-    query = 'SELECT * FROM fantasy_score'
+    query = 'SELECT ROW_NUMBER() OVER(ORDER BY Fantasy_points DESC) as Rank, fantasy_score.* FROM fantasy_score'
     if week:
         query += f' WHERE Week = {week}'
     if position:
@@ -28,9 +28,6 @@ def search():
             query += ' WHERE '
         query += f' Position = "{position}"'
     query += ' ORDER BY Fantasy_points Desc;'
-    #default params to show all not working
-    #if week == 0 and position == 0:
-        #query = 'SELECT * FROM fantasy_score ORDER BY Fantasy_points Desc;'
     db = get_db()
     fantasy_stats = db.execute(query).fetchall()
     return render_template('fantasy.html', fantasy_stats=fantasy_stats, week=week, position=position, name='')
@@ -65,6 +62,25 @@ def player():
 def season():
     db = get_db()
     fantasy_stats = db.execute(
-        'SELECT Name, Team, Position, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points FROM fantasy_score  DESC LIMIT 100;'
+        'SELECT ROW_NUMBER() OVER(ORDER BY SUM(Fantasy_points) DESC) as Rank, COUNT(DISTINCT (Week)) as Played, Name, Team, Position, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points, ROUND(AVG(Fantasy_points),2) as Average FROM fantasy_score GROUP BY Name ORDER BY Fantasy_points DESC LIMIT 100 ;'
     ).fetchall()
     return render_template('season.html', fantasy_stats=fantasy_stats, week='', position='', name='')
+
+@bp.route('/season', methods=['POST'])
+def seasonbyposition():
+    position = request.form['position']
+    query = 'SELECT ROW_NUMBER() OVER(ORDER BY SUM(Fantasy_points) DESC) as Rank, COUNT(DISTINCT (Week)) as Played, Name, Team, Position, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points, ROUND(AVG(Fantasy_points),2) as Average FROM fantasy_score' 
+    if position:
+        query += f' WHERE Position = "{position}"'
+    query += ' GROUP BY Name ORDER BY Fantasy_points DESC LIMIT 100 ;'
+    db = get_db()
+    fantasy_stats = db.execute(query).fetchall()
+    return render_template('season.html', fantasy_stats=fantasy_stats, position=position, name='')
+
+@bp.route('/team', methods=['GET'])
+def team():
+    db = get_db()
+    fantasy_stats = db.execute(
+        'SELECT ROW_NUMBER() OVER(ORDER BY SUM(Fantasy_points) DESC) as Rank, COUNT(DISTINCT (Week)) as Played, COUNT(playerid) as playerid, Team, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (Week)),2) as Average FROM fantasy_score GROUP BY Team ORDER BY Fantasy_points DESC;'
+    ).fetchall()
+    return render_template('team.html', fantasy_stats=fantasy_stats, week='', position='', name='')

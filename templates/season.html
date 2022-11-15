@@ -1,8 +1,33 @@
 <!doctype html>
 <header>
-    <h1>Fantasy Football</h1>
-    <hr>
+    <div class="nav-container">
+        <div class="left-container">
+            <h1>Fantasy Football</h1>
+        </div>
+        <div class="center-container">
+            <span class="nav-item">
+                <a href="/">Home</a>
+            </span>
+            <span class="nav-item">
+                <a href="/season">Season</a>
+            </span>
+            <span class="nav-item">
+                <a href="/team">Team</a>
+            </span>
+            <form action="/" method="GET" id="form3">
+                <input type="submit" id="home" name="home" value="Home"/>
+            </form>
+            <form action="/season" method="GET" id="form3">
+                <input type="submit" id="season" name="season" value="Season"/>
+            </form>
+            <form action="/team" method="GET" id="form3">
+                <input type="submit" id="team" name="team" value="Team"/>
+            </form>
+        </div>
+    </div>
 </header>
+<br>
+<br>
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
@@ -10,7 +35,7 @@
     <div>
         <h2>Top 100 players of 2022</h2>
     </div>
-    <form action="/" method="POST" id="form">
+    <form action="/season" method="POST" id="form">
         <label for="week">Week</label>
         <select id="week" name="week">
             <option value="0">Season</option>
@@ -27,16 +52,13 @@
         </select> 
         <label for="position">Position</label>
         <select id="position" name="position">
-            <option value="0">All Positions</option>
+            <option value="ALL">All Positions</option>
             <option value="QB">QB</option>
             <option value="RB">RB</option>
             <option value="WR">WR</option>
             <option value="TE">TE</option>
         </select> 
         <input type="submit" value="Search">
-    </form>
-    <form action="/" method="GET" id="form3">
-        <input type="submit" id="home" name="home" value="Home"/>
     </form>
     <input type="text" id="searchInput" placeholder="Search week by names..."/>
     <div>
@@ -50,6 +72,7 @@
 <table id="fantasyStats">
     <tr class="header">
         <th>Rank</th>
+        <th>GP</th>
         <th>Name</th>
         <th>Team</th>
         <th>Pos</th>
@@ -66,10 +89,12 @@
         <th>2PT</th>
         <th>FumLost</th>
         <th>Fantasy Points</th>
+        <th>Avg</th>
     </tr>
     {% for fantasy_score in fantasy_stats %}
     <tr>
-        <td>{{ '1' }}</td>
+        <td>{{ fantasy_score['Rank'] }}</td>
+        <td>{{ fantasy_score['Played'] }}</td>
         <td>{{ fantasy_score['Name'] }}</td>
         <td>{{ fantasy_score['Team'] }}</td>
         <td>{{ fantasy_score['Position'] }}</td>
@@ -86,6 +111,7 @@
         <td>{{ fantasy_score['Misc_2pt'] }}</td>
         <td>{{ fantasy_score['Fum_lost'] }}</td>
         <td>{{ fantasy_score['Fantasy_points'] }}</td>
+        <td>{{ fantasy_score['Average'] }}</td>
     </tr> 
     {% endfor %}
 </table>
