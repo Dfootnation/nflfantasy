@@ -14,10 +14,16 @@
             <span class="nav-item">
                 <a href="/team">Team</a>
             </span>
+            <span class="nav-item">
+                <a href="/against">Against</a>
+            </span>
+            <span class="nav-item">
+                <a href="/compare">Compare</a>
+            </span>
             <form action="/" method="GET" id="form3">
                 <input type="submit" id="home" name="home" value="Home"/>
             </form>
-            <form action="/season" method="GET" id="form3">
+            <form action="/seasom" method="GET" id="form3">
                 <input type="submit" id="season" name="season" value="Season"/>
             </form>
             <form action="/team" method="GET" id="form3">
@@ -33,9 +39,9 @@
 
 <div>
     <div>
-        <h2>Teams Fantasy Production Ranked 2022</h2>
+        <h2>Fantasy Points For 2022</h2>
     </div>
-    <form action="/season" method="POST" id="form">
+    <form action="/team" method="POST" id="form">
         <label for="week">Week</label>
         <select id="week" name="week">
             <option value="0">Season</option>
@@ -75,6 +81,7 @@
         <th>GP</th>
         <th>No. Players</th>
         <th>Team</th>
+        <th>Pos</th>
         <th>PassYds</th>
         <th>PassTD</th>
         <th>PassInt</th>
@@ -94,8 +101,9 @@
     <tr>
         <td>{{ fantasy_score['Rank'] }}</td>
         <td>{{ fantasy_score['Played'] }}</td>
-        <td>{{ fantasy_score['playerid'] }}</td>
+        <td>{{ fantasy_score['Players'] }}</td>
         <td>{{ fantasy_score['Team'] }}</td>
+        <td>{{ fantasy_score['Position'] }}</td>
         <td>{{ fantasy_score['Passing_yards'] }}</td>
         <td>{{ fantasy_score['Passing_tds'] }}</td>
         <td>{{ fantasy_score['Passing_int'] }}</td>

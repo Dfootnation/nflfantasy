@@ -196,3 +196,7 @@ table.info {
 div {
     display: block;
 }
+
+.compare th {
+    color: Black;
+}

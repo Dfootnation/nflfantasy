@@ -1,0 +1,126 @@
+<!doctype html>
+<header>
+    <div class="nav-container">
+        <div class="left-container">
+            <h1>Fantasy Football</h1>
+        </div>
+        <div class="center-container">
+            <span class="nav-item">
+                <a href="/">Home</a>
+            </span>
+            <span class="nav-item">
+                <a href="/season">Season</a>
+            </span>
+            <span class="nav-item">
+                <a href="/team">Team</a>
+            </span>
+            <span class="nav-item">
+                <a href="/against">Against</a>
+            </span>
+            <span class="nav-item">
+                <a href="/compare">Compare</a>
+            </span>
+        </div>
+    </div>
+</header>
+<br>
+<br>
+<br>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<div>
+    <form action="/compare" method="POST" id="form2">
+        <input type="type" id="name1" name="name1" placeholder="Search player by name..."/>
+        <input type="type" id="name2" name="name2" placeholder="Search player by name..."/>
+        <input type="submit" value="Compare">
+    </form>
+</div>
+
+<table id="player" class="fantasy">
+    <tr class="header">
+        <th>Name</th>
+        <th>GP</th>
+        <th>Team</th>
+        <th>Pos</th>
+        <th>Fantasy Points</th>
+        <th>Average</th>
+    </tr>
+    {% for fantasy_score in player1 %}
+    <tr>
+        <td>{{ fantasy_score['Name'] }}</td>
+        <td>{{ fantasy_score['Played'] }}</td>
+        <td>{{ fantasy_score['Team'] }}</td>
+        <td>{{ fantasy_score['Position'] }}</td>
+        <td>{{ fantasy_score['Fantasy_points'] }}</td>
+        <td>{{ fantasy_score['Average'] }}</td>
+    </tr> 
+    {% endfor %}
+    {% for fantasy_score in player2 %}
+    <tr>
+        <td>{{ fantasy_score['Name'] }}</td>
+        <td>{{ fantasy_score['Played'] }}</td>
+        <td>{{ fantasy_score['Team'] }}</td>
+        <td>{{ fantasy_score['Position'] }}</td>
+        <td>{{ fantasy_score['Fantasy_points'] }}</td>
+        <td>{{ fantasy_score['Average'] }}</td>
+    </tr> 
+    {% endfor %}
+</table>
+
+<table id="playercomp" class="compare">
+    <tr>
+        {% for fantasy_score in player1 %}
+        <td>{{ fantasy_score['Name'] }}</td>
+        {% endfor %}
+        <th>Name</th>
+        {% for fantasy_score in player2 %}
+        <td>{{ fantasy_score['Name'] }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for fantasy_score in player1 %}
+        <td>{{ fantasy_score['Played'] }}</td>
+        {% endfor %}
+        <th>GP</th>
+        {% for fantasy_score in player2 %}
+        <td>{{ fantasy_score['Played'] }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for fantasy_score in player1 %}
+        <td>{{ fantasy_score['Team'] }}</td>
+        {% endfor %}
+        <th>Team</th>
+        {% for fantasy_score in player2 %}
+        <td>{{ fantasy_score['Team'] }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for fantasy_score in player1 %}
+        <td>{{ fantasy_score['Position'] }}</td>
+        {% endfor %}
+        <th>Position</th>
+        {% for fantasy_score in player2 %}
+        <td>{{ fantasy_score['Position'] }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for fantasy_score in player1 %}
+        <td>{{ fantasy_score['Fantasy_points'] }}</td>
+        {% endfor %}
+        <th>Fantasy Points</th>
+        {% for fantasy_score in player2 %}
+        <td>{{ fantasy_score['Fantasy_points'] }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for fantasy_score in player1 %}
+        <td>{{ fantasy_score['Average'] }}</td>
+        {% endfor %}
+        <th>Average</th>
+        {% for fantasy_score in player2 %}
+        <td>{{ fantasy_score['Average'] }}</td>
+        {% endfor %}
+    </tr>
+</table>
