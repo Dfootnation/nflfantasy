@@ -31,42 +31,11 @@
 
 <div>
     <form action="/compare" method="POST" id="form2">
-        <input type="type" id="name1" name="name1" placeholder="Search player by name..."/>
-        <input type="type" id="name2" name="name2" placeholder="Search player by name..."/>
+        <input type="type" id="name1" name="name1" placeholder="Search player by name..." required/>
+        <input type="type" id="name2" name="name2" placeholder="Search player by name..." required/>
         <input type="submit" value="Compare">
     </form>
 </div>
-
-<table id="player" class="fantasy">
-    <tr class="header">
-        <th>Name</th>
-        <th>GP</th>
-        <th>Team</th>
-        <th>Pos</th>
-        <th>Fantasy Points</th>
-        <th>Average</th>
-    </tr>
-    {% for fantasy_score in player1 %}
-    <tr>
-        <td>{{ fantasy_score['Name'] }}</td>
-        <td>{{ fantasy_score['Played'] }}</td>
-        <td>{{ fantasy_score['Team'] }}</td>
-        <td>{{ fantasy_score['Position'] }}</td>
-        <td>{{ fantasy_score['Fantasy_points'] }}</td>
-        <td>{{ fantasy_score['Average'] }}</td>
-    </tr> 
-    {% endfor %}
-    {% for fantasy_score in player2 %}
-    <tr>
-        <td>{{ fantasy_score['Name'] }}</td>
-        <td>{{ fantasy_score['Played'] }}</td>
-        <td>{{ fantasy_score['Team'] }}</td>
-        <td>{{ fantasy_score['Position'] }}</td>
-        <td>{{ fantasy_score['Fantasy_points'] }}</td>
-        <td>{{ fantasy_score['Average'] }}</td>
-    </tr> 
-    {% endfor %}
-</table>
 
 <table id="playercomp" class="compare">
     <tr>

@@ -136,9 +136,50 @@ def comparebyname():
     if name2:
         query2 += f' WHERE Name = "{name2}"'
     query2 += ' GROUP BY Name ORDER BY Fantasy_points DESC;'
-    print(query1)
-    print(query2)
     db = get_db()
     player1 = db.execute(query1).fetchall()
     player2 = db.execute(query2).fetchall()
     return render_template('compare.html', player1=player1, player2=player2, week='', position='', name1=name1, name2=name2)
+
+@bp.route('/trade', methods=['GET'])
+def compare():
+    db = get_db()
+    fantasy_stats = db.execute(
+        'SELECT COUNT(DISTINCT (Week)) as Played, COUNT(DISTINCT(Name)) as Players, Against, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (Week)),2) as Average FROM fantasy_score GROUP BY Name ORDER BY Fantasy_points DESC;'
+    ).fetchall()
+    return render_template('tradecalc.html', fantasy_stats=fantasy_stats, week='', position='', name1='', name2='')
+
+@bp.route('/trade', methods=['POST'])
+def comparebyname():
+    name1 = request.form['name1']
+    name2 = request.form['name2']
+    query1 = 'SELECT COUNT(DISTINCT (Week)) as Played, Name, Team, Position, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (Week)),2) as Average FROM fantasy_score'
+    if name1:
+        query1 += f' WHERE Name = "{name1}" OR '
+    query1 += ' GROUP BY Name ORDER BY Fantasy_points DESC;'
+    
+    query2 = 'SELECT COUNT(DISTINCT (Week)) as Played, Name, Team, Position, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (Week)),2) as Average FROM fantasy_score'
+    if name2:
+        query2 += f' WHERE Name = "{name2}"'
+    query2 += ' GROUP BY Name ORDER BY Fantasy_points DESC;'
+    db = get_db()
+    team1 = db.execute(query1).fetchall()
+    team2 = db.execute(query2).fetchall()
+    return render_template('tradecalc.html', team1=team1, team2=team2, week='', position='', name1=name1, name2=name2)
+
+@bp.route('/trade', methods=['POST'])
+def comparebyname():
+    name1 = request.form['name1']
+    name2 = request.form['name2']
+    query1 = 'SELECT COUNT(DISTINCT (Week)) as Played, Name, Team, Position, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (Week)),2) as Average FROM fantasy_score'
+    if name1:
+        query1 += f' WHERE Name = "{name1}"'
+    query1 += 'GROUP BY Name ORDER BY Fantasy_points'
+    query2 = 'SELECT Position, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (playerid)),2) as Average FROM fantasy_score'
+    if name1:
+        query2 += f' WHERE Position = (SELECT Position * fantasy_score WHERE Name = "{name1}")'
+    query2 += ' GROUP BY Position'
+    db = get_db()
+    team1 = db.execute(query1).fetchall()
+    team2 = db.execute(query2).fetchall()
+    return render_template('tradecalc.html', team1=team1, team2=team2, week='', position='', name1=name1, name2=name2)
