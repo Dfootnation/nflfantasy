@@ -29,6 +29,9 @@ class Player:
 class Average:
     def __init__(self, position) -> None:
         self.position = position
+        self.reception = ''
+        self.yards = ''
+        self.tds = ''
         self.average = ''
 
     def __repr__(self) -> str:
@@ -38,8 +41,10 @@ def read_sqlite_table():
     connection = sqlite3.connect('instance/nflfantasy.sqlite')
     cursor = connection.cursor()
     #query1 = f'SELECT COUNT(DISTINCT (Week)) as Played, Name, Team, Position, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (Week)),2) as Average FROM fantasy_score WHERE Name = "{name1}" OR Name = "{name2}" GROUP BY Name LIMIT 10'
-    query1 = f'SELECT COUNT(DISTINCT (Week)) as Played, Name, Team, Position, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (Week)),2) as Average FROM fantasy_score GROUP BY Name ORDER BY Fantasy_points DESC LIMIT 10'
-    query2 = 'SELECT Position, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (playerid)),2) as Average FROM fantasy_score GROUP BY Position'
+    #query1 = f'SELECT COUNT(DISTINCT (Week)) as Played, Name, Team, Position, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, SUM(Receiving_rec) as Receiving_rec, SUM(Receiving_yards) as Receiving_yards, SUM(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (Week)),2) as Average FROM fantasy_score GROUP BY Name ORDER BY Fantasy_points DESC LIMIT 10'
+    query1 = f'SELECT COUNT(DISTINCT (Week)) as Played, Name, Team, Position, SUM(Passing_yards) as Passing_yards, SUM(Passing_tds) as Passing_tds, SUM(Passing_int) as Passing_int, SUM(Rushing_yards) as Rushing_yards, SUM(Rushing_tds) as Rushing_tds, AVG(Receiving_rec) as Receiving_rec, AVG(Receiving_yards) as Receiving_yards, AVG(Receiving_tds) as Receiving_tds, SUM(Return_td) as Return_td, SUM(Misc_fumtd) as Misc_fumtd, SUM(Misc_2pt) as Misc_2pt, SUM(Fum_lost) as Fum_lost, ROUND(SUM(Fantasy_points),2) as Fantasy_points, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (Week)),2) as Average FROM fantasy_score WHERE Position = "WR" GROUP BY Name ORDER BY Fantasy_points DESC LIMIT 10'
+    #query2 = 'SELECT Position, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (playerid)),2) as Average FROM fantasy_score GROUP BY Position'
+    query2 = 'SELECT Position, ROUND(SUM(Receiving_rec)/COUNT(DISTINCT (playerid)),2) as Receptions, ROUND(SUM(Receiving_yards)/COUNT(DISTINCT (playerid)),2) as ReceivingYards, ROUND(SUM(Receiving_tds)/COUNT(DISTINCT (playerid)),2) as ReceivingTDs, ROUND(SUM(Fantasy_points)/COUNT(DISTINCT (playerid)),2) as Average FROM fantasy_score WHERE Position = "WR" GROUP BY Position'
     cursor.execute(query1)
     player = cursor.fetchall()
     cursor.execute(query2)
@@ -76,19 +81,22 @@ def read_sqlite_table():
             positions[position] = []
         average = Average(position)
         positions[position].append(average)
-        average.average = row[1]
+        average.reception = row[1]
+        average.yards = row[2]
+        average.tds = row[3]
+        average.average = row[4]
         avgs.append(row)
     connection.close()
 
 def print_players(names):
   for name, players in names.items():
     for player in players:
-        print(f"{player.played}, {name}, {player.pos}, {player.fan_points}, {player.avg}")
+        print(f"{player.played}, {name}, {player.pos}, {player.re_rec}, {player.re_yards}, {player.re_tds}, {player.fan_points}, {player.avg}")
 
-def print_averages(avgs):
-    for avgs in positions.items():
+def print_averages(positions):
+    for position, avgs in positions.items():
         for average in avgs:
-            print(f"{average.position}, {average.average}")
+            print(f"{position}, {average.reception}, {average.yards}, {average.tds}, {average.average}")
 
 def calculator(names, avgs):
     #compare players to average player of same position
@@ -110,5 +118,5 @@ names = {}
 positions ={}
 
 read_sqlite_table()
-#print_players(names)
-#print_averages(avgs)
+print_players(names)
+print_averages(positions)
