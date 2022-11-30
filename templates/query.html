@@ -32,15 +32,12 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 <div>
-    <div>
-        <h2>Top 100 players of 2022</h2>
-    </div>
-    <form action="/season" method="POST" id="form">
+    <form action="/" method="POST" id="form">
         <label for="week">Week</label>
         <select id="week" name="week">
             <option value="0">Season</option>
             <option value="1" disabled>1</option>
-            <option value="2" disabled>2</option>
+            <option value="2" diasbled>2</option>
             <option value="3" disabled>3</option>
             <option value="4" disabled>4</option>
             <option value="5" disabled>5</option>
@@ -52,30 +49,25 @@
         </select> 
         <label for="position">Position</label>
         <select id="position" name="position">
-            <option value="ALL">All Positions</option>
-            <option value="QB">QB</option>
-            <option value="RB">RB</option>
-            <option value="WR">WR</option>
-            <option value="TE">TE</option>
+            <option value="0" disabled>All Positions</option>
+            <option value="QB" disabled>QB</option>
+            <option value="RB" disabled>RB</option>
+            <option value="WR" disabled>WR</option>
+            <option value="TE" disabled>TE</option>
         </select> 
         <input type="submit" value="Search">
     </form>
-    <input type="text" id="searchInput" placeholder="Search week by names..."/>
-    <div>
-        <form action="/player" method="POST" id="form2">
-            <input type="type" id="name" name="name" placeholder="Search player by name..."/>
-        </form>
-    </div>
-    
+    <input type="text" id="searchInput" placeholder="Search by names..."/>
 </div>
 
-<table id="fantasyStats">
+<h3>List of players who have scored over 10 points in all of the games they've played in having played at least 6 games so far</h3>
+
+<table id="playerStats">
     <tr class="header">
         <th>Rank</th>
-        <th>GP</th>
         <th>Name</th>
         <th>Team</th>
-        <th>Pos</th>
+        <th>Position</th>
         <th>PassYds</th>
         <th>PassTD</th>
         <th>PassInt</th>
@@ -88,13 +80,12 @@
         <th>FumTD</th>
         <th>2PT</th>
         <th>FumLost</th>
+        <th>Played</th>
         <th>Fantasy Points</th>
-        <th>Avg</th>
     </tr>
-    {% for fantasy_score in fantasy_stats %}
+    {% for fantasy_score in floor %}
     <tr>
         <td>{{ fantasy_score['Rank'] }}</td>
-        <td>{{ fantasy_score['Played'] }}</td>
         <td>{{ fantasy_score['Name'] }}</td>
         <td>{{ fantasy_score['Team'] }}</td>
         <td>{{ fantasy_score['Position'] }}</td>
@@ -110,8 +101,8 @@
         <td>{{ fantasy_score['Misc_fumtd'] }}</td>
         <td>{{ fantasy_score['Misc_2pt'] }}</td>
         <td>{{ fantasy_score['Fum_lost'] }}</td>
+        <td>{{ fantasy_score['Played'] }}</td>
         <td>{{ fantasy_score['Fantasy_points'] }}</td>
-        <td>{{ fantasy_score['Average'] }}</td>
     </tr> 
     {% endfor %}
 </table>

@@ -183,3 +183,35 @@ def namelater2():
     team1 = db.execute(query1).fetchall()
     team2 = db.execute(query2).fetchall()
     return render_template('tradecalc.html', team1=team1, team2=team2, week='', position='', name1=name1, name2=name2)
+
+@bp.route('/query', methods=['GET'])
+def query():
+    query1 = "SELECT ROW_NUMBER() OVER(ORDER BY AVG(Fantasy_points) DESC) as Rank, Name, Team, Position, ROUND(AVG(Passing_yards),2) as Passing_yards, ROUND(AVG(Passing_tds),2) as Passing_tds, ROUND(AVG(Passing_int),2) as Passing_int, ROUND(AVG(Rushing_yards),2) as Rushing_yards, ROUND(AVG(Rushing_tds),2) as Rushing_tds, ROUND(AVG(Receiving_rec),2) as Receiving_rec, ROUND(AVG(Receiving_yards),2) as Receiving_yards, ROUND(AVG(Receiving_tds),2) as Receiving_tds, ROUND(AVG(Return_td),2) as Return_td, ROUND(AVG(Misc_fumtd),2) as Misc_fumtd, ROUND(AVG(Misc_2pt),2) as Misc_2pt, ROUND(AVG(Fum_lost),2) as Fum_lost, COUNT(DISTINCT(Week)) as Played, ROUND(AVG(Fantasy_points),2) as Fantasy_points FROM fantasy_score GROUP BY Name HAVING Min(Fantasy_points) > 10 AND COUNT(DISTINCT(Week)) >= 6 ORDER BY Fantasy_points DESC;"
+    db = get_db()
+    floor = db.execute(query1).fetchall()
+    return render_template('query.html', floor=floor)
+
+
+@bp.route('/query', methods=['POST'])
+def makeyourownquery():
+    column = request.form['column']
+    average = request.form['average']
+    where = request.form['where']
+    greaterthan = request.form['greaterthan']
+    where2 = request.form['where2']
+    sign1 = request.form['sign1']
+    sign2 = request.form['sign2']
+    query1 = "SELECT "
+    if column:
+        f"{column} "
+    if average:
+        query1 += "ROW_NUMBER() OVER(ORDER BY AVG(Fantasy_points) DESC) as Rank, Name, Team, Position, ROUND(AVG(Passing_yards),2) as Passing_yards, ROUND(AVG(Passing_tds),2) as Passing_tds, ROUND(AVG(Passing_int),2) as Passing_int, ROUND(AVG(Rushing_yards),2) as Rushing_yards, ROUND(AVG(Rushing_tds),2) as Rushing_tds, ROUND(AVG(Receiving_rec),2) as Receiving_rec, ROUND(AVG(Receiving_yards),2) as Receiving_yards, ROUND(AVG(Receiving_tds),2) as Receiving_tds, ROUND(AVG(Return_td),2) as Return_td, ROUND(AVG(Misc_fumtd),2) as Misc_fumtd, ROUND(AVG(Misc_2pt),2) as Misc_2pt, ROUND(AVG(Fum_lost),2) as Fum_lost, COUNT(DISTINCT (Week)) as Played, ROUND(AVG(Fantasy_points),2) as Fantasy_points FROM fantasy_score "
+    if where:
+        query1 += f"WHERE {where} {sign1} {greaterthan}"
+        if where2:
+            query1 += f"AND {where} {sign2} {greaterthan}"
+    query1 += "GROUP BY Name ORDER BY Fantasy_points LIMIT 100;"
+
+    db = get_db()
+    team1 = db.execute(query1).fetchall()
+    return render_template('query.html', team1=team1, team2=team2, week='', position='', name1=name1, name2=name2)
