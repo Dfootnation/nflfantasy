@@ -1,0 +1,32 @@
+check how players compare without ppr
+e.g standard, .5 ppr
+
+things I could look at 
+WR vs RB vs TE at each level
+rank them to see which is worth the most for drafting purposes
+
+look for outliers to draft e.g. travis kelce, top qbs
+
+
+
+Team of the week
+have some positional based queries to find out the best players in fantasy each week and create the best team each week
+
+e.g. For week 1
+QB
+SELECT * from Fantasy_score WHERE Position = 'QB' AND Week = 1 ORDER BY Fantasy_points DESC LIMIT 1;
+RB
+SELECT * from Fantasy_score WHERE Position = 'RB' AND Week = 1 ORDER BY Fantasy_points DESC LIMIT 2;
+WR
+SELECT * from Fantasy_score WHERE Position = 'WR' AND Week = 1 ORDER BY Fantasy_points DESC LIMIT 2;
+TE
+SELECT * from Fantasy_score WHERE Position = 'TE' AND Week = 1 ORDER BY Fantasy_points DESC LIMIT 1;
+RB/WR
+SELECT * from Fantasy_score WHERE Position = 'RB' OR 'WR' AND Week = 1 ORDER BY Fantasy_points DESC LIMIT 1;
+Or
+SELECT * from Fantasy_score WHERE Position = 'RB' AND Week = 1 ORDER BY Fantasy_points DESC LIMIT 1;
+
+
+SELECT * FROM (SELECT * from Fantasy_score WHERE Position = 'QB' AND Week = 1 ORDER BY Fantasy_points DESC) ORDER BY Fantasy_points DESC LIMIT 1;
+
+SELECT * FROM (SELECT * from Fantasy_score WHERE Position = 'QB' AND Week = 1 ORDER BY Fantasy_points DESC) ORDER BY Fantasy_points DESC LIMIT 1;
