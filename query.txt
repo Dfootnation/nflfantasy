@@ -1,0 +1,20 @@
+#make a write your own query without using code
+
+#SELECT
+# always present (rank, games played, name, team, position)
+# avg = season averages
+# sum = season totals
+# can select both (does avg/sum for every column)
+# make your own column
+#FROM Fantasy_score
+#if where (select how many where statements)
+#WHERE
+#pick a column (e.g.)
+
+#GROUP BY 
+#Name (is deafult)
+#Team
+#Against
+#Position
+#if order
+#ORDER BY 
