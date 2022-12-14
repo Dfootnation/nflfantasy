@@ -6,6 +6,7 @@
 # sum = season totals
 # can select both (does avg/sum for every column)
 # make your own column
+
 #FROM Fantasy_score
 #if where (select how many where statements)
 #WHERE
@@ -16,5 +17,17 @@
 #Team
 #Against
 #Position
-#if order
-#ORDER BY 
+
+# if having
+# HAVING 
+# an aggregate column e.g Min(Fantasy_points) 
+# sign e.g >
+# number e.g 10
+# if 2
+# AND 
+
+# if order
+# ORDER BY 
+# Fantasy_points 
+# DESC (high to low)
+# ASC (low to high)
